@@ -1,0 +1,78 @@
+\documentclass[a4paper]{book}
+%\documentclass[a4paper]{ctexbook}
+%\documentclass[a4paper]{ctexart}
+\usepackage{ctex}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{hyperref} %生成书签
+
+%================================
+% A.PDF标签
+%================================
+\hypersetup{
+    colorlinks=true,
+    bookmarksnumbered=true,
+    pdftitle={My LaTeX2e note},
+    pdfkeywords={LaTex, note},
+}
+
+\title{\Huge \bfseries 使用 \LaTeX 编写笔记}
+\author{\huge 莫志烨}
+\CTEXoptions[today=big]
+\date{\Large \today}
+
+%================================
+% B.代码全局格式
+%================================
+\lstset{
+    numbers=left,
+    %numberstyle={\color{lightgray}},
+    numberstyle={\color{green}},
+    backgroundcolor={\color[RGB]{41, 47, 51}}, %背景颜色
+    basicstyle={\color[RGB]{208, 214, 219}}, %普通字符串颜色
+    stringstyle={\color[RGB]{0, 128, 0}}, %字符串颜色
+    keywordstyle={\color[RGB]{101, 140, 230}}, %关键词颜色
+    commentstyle={\color{gray}}, %注释颜色
+    frame=none, %无边框
+    breaklines=true, %自动分行
+    language={[ANSI]C},
+    captionpos=b,
+}
+
+%================================
+% C.新命令定义
+%================================
+
+\newcommand{OutputListing}[]{
+}
+
+\begin{document}
+
+%================================
+% 1.标题
+%================================
+\chapter{标题}
+\begin{titlepage}
+\maketitle
+\end{titlepage}
+
+%================================
+% 2.目录
+%================================
+\chapter{目录}
+\tableofcontents
+
+%================================
+% 3.章节(每天日志入口)
+%================================
+\input{note_everyday/001_20200302/note_at_20300302}
+\input{note_everyday/000_latex_note/latex_note}
+
+
+\end{document}
+
+
+
+%This is 日志.
+
