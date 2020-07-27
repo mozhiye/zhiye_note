@@ -1,5 +1,5 @@
 @echo off                                                                                                                               
-set LSHORT=zhiye_note
+set LSHORT=git
 set PDF=%LSHORT%.pdf
 set TEMP=%LSHORT%.aux %LSHORT%.log
 
