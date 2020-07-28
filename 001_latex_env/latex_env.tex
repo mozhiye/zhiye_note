@@ -1,0 +1,116 @@
+%==========================================
+% Latex 命令环境设置
+%==========================================
+
+%==========================================
+% 字体设置
+%==========================================
+%\newfontfamily{\monoca}{Monaco}
+\newfontfamily{\monoca}{Microsoft YaHei}
+% \setCJKmainfont{FandolSong}
+% \setmainfont{FiraSans-Light}
+% \setsansfont{FiraSans-Hair}
+% \setmonofont{FiraMono-Regular}
+
+\setCJKmainfont{Microsoft YaHei}
+% \setmainfont{Microsoft YaHei}
+% \setsansfont{Microsoft YaHei}
+% \setmonofont{Microsoft YaHei}
+
+\setmainfont{Consolas}
+\setsansfont{Consolas}
+\setmonofont{Consolas}
+
+
+%==========================================
+% 自定义命令设置
+%==========================================
+\newcommand{\urllink}[2]{\href{#1}{#2}}
+
+\newcommand{\HT}{\textsc{\raisebox{0.1em}{H}\raisebox{-0.1em}{I}%
+	\raisebox{0.1em}{T}\raisebox{-0.1em}{E}\raisebox{0.1em}{C} }}
+
+\newtheorem{thm}{定理}
+\newcommand\degree{^\circ}
+
+\newtcbox{\command}[1][blue]{enhanced,on line,%drop fuzzy shadow,
+arc=2pt,outer arc=2pt,colback=#1!5!white,colframe=#1!50!black,
+boxsep=0pt,left=3pt,right=3pt,top=1pt,bottom=1pt,
+colupper=blue!50!black,fit basedim=10pt,
+boxrule=0.1pt,bottomrule=0.1pt,toprule=0.1pt,nobeforeafter}
+
+%==========================================
+% 自定义lsting设置
+%==========================================
+
+\newtcblisting{code}{%
+breakable,
+left=3mm,
+listing only,
+boxrule=0.2mm,
+colback=gray!5,
+fontupper=\monoca,colupper=red!50!black,
+coltext=black
+}%
+
+\newtcblisting{cmd}{%
+breakable,
+left=3mm,
+listing only,
+boxrule=0.2mm,
+colback=black,
+fontupper=\monoca,colupper=red!50!black,
+coltext=green
+}%
+
+\newtcblisting{codeout}{%
+breakable,
+left=3mm,
+boxrule=0.2mm,
+colback=gray!5,
+fontupper=\monoca,colupper=red!50!black,
+coltext=black
+}%
+
+%\lstset{
+    % numbers=left,
+    % %numberstyle={\color{lightgray}},
+    % numberstyle={\color{green}},
+    % backgroundcolor={\color[RGB]{41, 47, 51}}, %背景颜色
+    % basicstyle={\color[RGB]{208, 214, 219}}, %普通字符串颜色
+    % stringstyle={\color[RGB]{0, 128, 0}}, %字符串颜色
+    % keywordstyle={\color[RGB]{101, 140, 230}}, %关键词颜色
+    % commentstyle={\color{gray}}, %注释颜色
+    % frame=none, %无边框
+    % breaklines=true, %自动分行
+    % language={[ANSI]C},
+    % captionpos=b,
+% }
+
+\lstnewenvironment{myccode}
+{\lstset{
+    numbers=left,
+    numberstyle={\color{lightgray}},
+    frame=none, %无边框
+    language={[ANSI]C},
+    breaklines=true, %自动分行
+    keywordstyle={\color{blue}}, %关键词颜色
+    %stringstyle={\color{orange}}, %字符串颜色
+    stringstyle={\color{magenta}}, %字符串颜色
+    commentstyle={\color{green}}, %注释颜色
+    %basicstyle={\color[black]}, %普通字符串颜色
+    captionpos=b,
+        }
+}
+{}
+
+%==========================================
+% 标签格式
+%==========================================
+\hypersetup{
+    colorlinks=true,
+    bookmarksnumbered=true,
+    pdftitle={My LaTeX2e note},
+    pdfkeywords={LaTex, note},
+}
+
