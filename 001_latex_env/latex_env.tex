@@ -33,7 +33,7 @@
 \newtheorem{thm}{定理}
 \newcommand\degree{^\circ}
 
-\newtcbox{\command}[1][blue]{enhanced,on line,%drop fuzzy shadow,
+\newtcbox{\emphasizebox}[1][blue]{enhanced,on line,%drop fuzzy shadow,
 arc=2pt,outer arc=2pt,colback=#1!5!white,colframe=#1!50!black,
 boxsep=0pt,left=3pt,right=3pt,top=1pt,bottom=1pt,
 colupper=blue!50!black,fit basedim=10pt,
@@ -42,8 +42,7 @@ boxrule=0.1pt,bottomrule=0.1pt,toprule=0.1pt,nobeforeafter}
 %==========================================
 % 自定义lsting设置
 %==========================================
-
-\newtcblisting{code}{%
+\newtcblisting{messagebox}{%
 breakable,
 left=3mm,
 listing only,
@@ -53,7 +52,7 @@ fontupper=\monoca,colupper=red!50!black,
 coltext=black
 }%
 
-\newtcblisting{cmd}{%
+\newtcblisting{commandbox}{%
 breakable,
 left=3mm,
 listing only,

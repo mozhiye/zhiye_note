@@ -1,8 +1,98 @@
 \section{GIT学习笔记}
 \subsection{合并两个提交历史}
-连续在本地有两个提交， 如果需要合并这两个提交历史， 使用命令：
-\begin{cmd}
+\begin{itemize}
+\item 使用情景: 有时候在开发过程中会由于不同原因会产生很多个本地提交历史:
+\begin{messagebox}
+commit dc7a92e627975cf7e75b6cccad872eb28a2bb13d
+Author: mozhiye <mozhiye@aaa.com>
+Date:   Tue Jul 28 20:43:38 2020 +0800
+
+    [br34]: test git;
+
+commit 93da6cc678a253467efa5165a22019e66b538f88
+Author: mozhiye <mozhiye@aaa.com>
+Date:   Tue Feb 25 17:12:29 2020 +0800
+
+    [BR34]: add br34 cpu;
+\end{messagebox}
+
+\item 如果直接\emphasizebox{push}，会造成合并工作增加，如果需要合并这两个提交历史为一个提交， 使用命令：
+\begin{commandbox}
  > git rebase -i HEAD~2
-\end{cmd}
+\end{commandbox}
+
+\item 执行\emphasizebox{rebase}命令后，会调用\emphasizebox{vim}显示合并信息：
+
+\begin{messagebox}
+pick 93da6cc [BR34]: add br34 cpu;
+pick dc7a92e [br34]: test git;
+
+# Rebase 995bb83..dc7a92e onto 995bb83 (2 command(s))
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like "squash", but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+# d, drop = remove commit
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out
+\end{messagebox}
+
+\item 由注释可以看到，如果希望把最后一个提交\emphasizebox{test git}合并到上一个提交\emphasizebox{add br34 cpu}；需要如下修改：
+\begin{messagebox}
+pick 93da6cc [BR34]: add br34 cpu;
+squash dc7a92e [br34]: test git;
+\end{messagebox}
+
+\item 修改后保存退出\emphasizebox{vim}，可以修改合并后的提交信息：
+\begin{messagebox}
+# This is a combination of 2 commits.
+# The first commit's message is:
+
+[BR34]: add br34 cpu;
+
+# This is the 2nd commit message:
+
+[br34]: test git;
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Date:      Tue Feb 25 17:12:29 2020 +0800
+#
+# interactive rebase in progress; onto 995bb83
+# Last commands done (2 commands done):
+#    pick 93da6cc [BR34]: add br34 cpu;
+#    squash dc7a92e [br34]: test git;
+# No commands remaining.
+# You are currently editing a commit while rebasing branch 'master' on '995bb83'.
+#
+\end{messagebox}
+
+\item 合并后最终的提交信息：
+\begin{messagebox}
+commit c92db4f8cc0eae1d2d5d76cb5cc1c96dedf6d004
+Author: mozhiye <mozhiye@aaa.com>
+Date:   Tue Feb 25 17:12:29 2020 +0800
+
+    [BR34]: add br34 cpu;
+        
+    [br34]: test git;
+\end{messagebox}
+
+\end{itemize}
 
 
+\subsection{git patch 应用}
+\begin{itemize}
+\item 使用情景: 当某个问题fix后，在本地生成一个提交或多个提交，可以将该提交的修改生成patch文件发给某个同事合并。
+\end{itemize}
