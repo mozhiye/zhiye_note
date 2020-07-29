@@ -95,4 +95,148 @@ Date:   Tue Feb 25 17:12:29 2020 +0800
 \subsection{git patch 应用}
 \begin{itemize}
 \item 使用情景: 当某个问题fix后，在本地生成一个提交或多个提交，可以将该提交的修改生成patch文件发给某个同事合并。
+\begin{messagebox}
+± git st
+On branch dev
+Your branch is ahead of 'origin/dev' by 2 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+\end{messagebox}
+
+\begin{messagebox}
+commit 358159bc2c426e9294f5e31789a7a92bcd94a922 (HEAD -> dev)
+Author: mozhiye <zhiyemo@outlook.com>
+Date:   Wed Jul 29 19:00:28 2020 +0800
+
+    [dev]: patch 2;
+
+commit ed9c6864c6a31854c75884d6202be42b391c88a5
+Author: mozhiye <zhiyemo@outlook.com>
+Date:   Wed Jul 29 17:43:15 2020 +0800
+
+    [dev]: test patch;
+
+\end{messagebox}
+
+\item 把一个提交生成patch，执行命令：
+\begin{commandbox}
+± git format-patch -1 358159bc2
+0001-dev-patch-2.patch
+\end{commandbox}
+
+\item 生成patch内容：
+\begin{messagebox}
+From 358159bc2c426e9294f5e31789a7a92bcd94a922 Mon Sep 17 00:00:00 2001
+From: mozhiye <zhiyemo@outlook.com>
+Date: Wed, 29 Jul 2020 19:00:28 +0800
+Subject: [PATCH] [dev]: patch 2;
+
+---
+ git.tex | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/git.tex b/git.tex
+index 16f8908..e33d146 100644
+--- a/git.tex
++++ b/git.tex
+@@ -20,6 +20,7 @@
+ \graphicspath{{figure/}}
+ \usepackage{newenviron}
+
++\input{001_latex_env/latex_env}
+ \input{001_latex_env/latex_env}
+
+ %==========================================
+-- 
+2.17.1
+\end{messagebox}
+
+\item 把\emphasizebox{0001-dev-patch-2.patch}拷到需要打补丁的工程，检查补丁状态，执行命令：
+\begin{commandbox}
+± git apply --stat 0001-dev-patch-2.patch 
+ README.md |    2 ++
+ 1 file changed, 2 insertions(+)
+\end{commandbox}
+
+\item 检查补丁文件是否应用成功：
+\begin{commandbox}
+± git apply --check 0001-dev-patch-2.patch
+\end{commandbox}
+
+\item 打补丁：
+\begin{commandbox}
+± git am --signoff 0001-dev-patch-2.patch 
+Applying: patch 2;
+\end{commandbox}
+
+\item 打补丁后结果：
+\begin{messagebox}
+commit f6d43d9c327f6a5959f42950e03174bcf838c05e (HEAD -> dev)
+Author: mozhiye <zhiyemo@outlook.com>
+Date:   Wed Jul 29 19:00:28 2020 +0800
+
+    patch 2;
+    
+    Signed-off-by: mozhiye <zhiyemo@outlook.com>
+\end{messagebox}
+
+\item 关于git patch的一些其他命令：
+1. 使用git format-patch生成所需要的patch:
+当前分支所有超前master的提交：
+\begin{messagebox}
+git format-patch -M master
+\end{messagebox}
+
+某次提交以后的所有patch:
+\begin{messagebox}
+git format-patch 4e16                --4e16指的是commit名
+从根到指定提交的所有patch:
+\end{messagebox}
+git format-patch                          --root 4e16
+某两次提交之间的所有patch:
+\begin{messagebox}
+git format-patch 365a..4e16      --365a和4e16分别对应两次提交的名称
+\end{messagebox}
+某次提交（含）之前的几次提交：
+\begin{messagebox}
+git format-patch –n 07fe             --n指patch数，07fe对应提交的名称
+\end{messagebox}
+故，单次提交即为：
+\begin{messagebox}
+git format-patch -1 07fe
+\end{messagebox}
+git format-patch生成的补丁文件默认从1开始顺序编号，并使用对应提交信息中的第一行作为文件名。如果使用了-- numbered-files选项，则文件名只有编号，不包含提交信息；如果指定了--stdout选项，可指定输出位置，如当所有patch输出到一个文件；可指定-o <dir>指定patch的存放目录；
+ 
+2. 应用patch：
+先检查patch文件：
+\begin{messagebox}
+git apply --stat newpatch.patch
+\end{messagebox}
+检查能否应用成功：
+\begin{messagebox}
+git apply --check  newpatch.patch
+\end{messagebox}
+打补丁：git am --signoff newpatch.patch
+(使用-s或--signoff选项，可以commit信息中加入Signed-off-by信息)
+添加-s或者--signoff，还可以把自己的名字添加为signed off by信息，作用是注明打patch的人是谁，因为有时打patch的人并不是patch的作者
+
+3. 注意
+git apply是一种打patch的命令，其与git am的区别是，git apply并不会将commit message等打上去，打完patch后需要重新git add和git commit，而git am会直接将patch的所有信息打上去，而且不用重新git add和git commit,author也是patch的author而不是打patch的人)
+
+将路径~/patch-set/*.patch 按照先后顺序打上
+\begin{messagebox}
+git am ~/patch-set/*.patch
+\end{messagebox}
+
+当git am失败时，用以将已经在am过程中打上的patch废弃掉(比如有三个patch，打到第三个patch时有冲突，那么这条命令会把打上的前两个patch丢弃掉，返回没有打patch的状态)
+\begin{messagebox}
+git am --abort
+\end{messagebox}
+
+当git am失败，解决完冲突后，这条命令会接着打patch
+\begin{messagebox}
+git am --resolved
+\end{messagebox}
+
 \end{itemize}
