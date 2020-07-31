@@ -1,0 +1,14 @@
+\section{系统问题总结}
+\subsection{关于系统软关机复位问题}
+Q：系统软关机使用内置触摸和普通IO关机，开机时\emphasizebox{reset}位置有什么不同？
+\begin{itemize}
+    \item 普通IO关机，P11系统会掉电，指剩下P33维持电压，开机\emphasizebox{reset}是从\emphasizebox{maskrom}的\emphasizebox{startup}开始；
+    \item 使用内置触摸关机，P11系统维持电源工作，这是关机之后还会大几\emphasizebox{uA}的原因，开机\emphasizebox{reset}也是从\emphasizebox{maskrom}的\emphasizebox{Startup}开始；
+\end{itemize}
+
+\subsection{关于使用内置触摸开机ROM中IO状态恢复出错问题}
+Q：当使用内置触摸开机时，发现\emphasizebox{PC3 IO}变为输出低状态，关机之前在mask\_IO中已经把IO状态设置为高阻？
+\begin{itemize}
+    \item 当使用\emphasizebox{LPCTMU}关机时，会使用\emphasizebox{PLCNT}模块，配置了\emphasizebox{P3\_PCNT\_SET0}和\emphasizebox{P3\_PCNT\_SET1}两个寄存器，\emphasizebox{PC3 IO}状态正好配置了3，导致在mask恢复IO时设置为输出0状态；
+    \item 解决办法：在\emphasizebox{soft\_off\_enter}和\emphasizebox{soft\_off\_exit}时加入\emphasizebox{save}和\emphasizebox{recover}流程即可。
+\end{itemize}

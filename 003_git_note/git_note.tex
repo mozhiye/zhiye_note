@@ -239,4 +239,15 @@ git am --abort
 git am --resolved
 \end{messagebox}
 
+\subsection{回退到某个时间点}
+当需要把\emphasizebox{git}仓库\emphasizebox{reset}到某个时间点，执行命令：
+\begin{commandbox}
+± git checkout 'master@{2020-07-22 12:44}'
+\end{commandbox}
+repo命令：
+\begin{commandbox}
+± repo forall -c git checkout 'master@{2020-07-15 12:44}'
+\end{commandbox}
+
+
 \end{itemize}
