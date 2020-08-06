@@ -14,3 +14,14 @@ Q：当使用内置触摸开机时，发现\emphasizebox{PC3 IO}变为输出低�
 \end{itemize}
 
 \subsection{br28 ass ASS\_CLK\_CON bit7写完和读出来不一样问题(bit5)}
+
+\subsection{br34 RVDD电压要大于等于DVDD问题}
+如果RVDD < DVDD时，有的板子会出现程序跑到某个ram地址出现非对齐访问异常问题。
+\begin{figure}[H]
+\centering
+\includegraphics[height=8cm]{rvdd_question.png}
+\caption{异常打印}
+\label{fig:rvdd_exeception}
+\end{figure}
+注意：RVDD >= DVDD。
+
