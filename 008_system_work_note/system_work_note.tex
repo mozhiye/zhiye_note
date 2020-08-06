@@ -12,3 +12,5 @@ Q：当使用内置触摸开机时，发现\emphasizebox{PC3 IO}变为输出低�
     \item 当使用\emphasizebox{LPCTMU}关机时，会使用\emphasizebox{PLCNT}模块，配置了\emphasizebox{P3\_PCNT\_SET0}和\emphasizebox{P3\_PCNT\_SET1}两个寄存器，\emphasizebox{PC3 IO}状态正好配置了3，导致在mask恢复IO时设置为输出0状态；
     \item 解决办法：在\emphasizebox{soft\_off\_enter}和\emphasizebox{soft\_off\_exit}时加入\emphasizebox{save}和\emphasizebox{recover}流程即可。
 \end{itemize}
+
+\subsection{br28 ass ASS\_CLK\_CON bit7写完和读出来不一样问题(bit5)}
