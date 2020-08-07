@@ -86,11 +86,13 @@ coltext=black
     % captionpos=b,
 % }
 
-\lstnewenvironment{myccode}
+\lstnewenvironment{myccode}[1][]
 {\lstset{
     numbers=left,
     %numberstyle={\color{lightgray}},
     %frame=none, %无边框
+    frame=lines, %上下线
+    %frame=single, %边框
     language={[ANSI]C},
     breaklines=true, %自动分行
     %keywordstyle={\color{blue}}, %关键词颜色
@@ -98,7 +100,8 @@ coltext=black
     %stringstyle={\color{magenta}}, %字符串颜色
     %commentstyle={\color{green}}, %注释颜色
     %basicstyle={\color[black]}, %普通字符串颜色
-    captionpos=b,
+    %captionpos=b,
+    #1
         }
 }
 {}
