@@ -1,5 +1,5 @@
 @echo off                                                                                                                               
-set LSHORT=git
+set LSHORT=beamer
 set PDF=%LSHORT%.pdf
 set TEMP=%LSHORT%.aux %LSHORT%.log
 
