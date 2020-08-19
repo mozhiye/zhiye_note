@@ -14,4 +14,4 @@ if exist %PDF% (
 start "" "%PDF%"
 )
 
-%del %TEMP%
+REM %del %TEMP%
