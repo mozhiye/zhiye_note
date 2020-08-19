@@ -1,5 +1,5 @@
-@echo off                                                                                                                               
-set LSHORT=git
+@echo off
+set LSHORT=report
 set PDF=%LSHORT%.pdf
 set TEMP=%LSHORT%.aux %LSHORT%.log
 
@@ -14,4 +14,4 @@ if exist %PDF% (
 start "" "%PDF%"
 )
 
-REM %del %TEMP%
+%del %TEMP%

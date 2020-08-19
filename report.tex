@@ -29,9 +29,9 @@
 %==========================================
 % 首页信息
 %==========================================
-\title{工作笔记}
+\title{BR30 TDM测试环境说明}
 \author{莫志烨}
-\company{纯属个人}
+\company{杰理科技-固件五部}
 \confidential{\textbf{-- 非限制发布 --}}
 
 %==========================================
@@ -40,7 +40,7 @@
 \begin{document}
 \begin{titlepage}
 \maketitle
-这是一篇关于\LaTeX 的文档，风格使用 \HT 。
+%这是一篇关于\LaTeX 的文档，风格使用 \HT 。
 \end{titlepage}
 
 %\begin{abstract}
@@ -54,17 +54,16 @@
 \newpage
 
 %==========================================
+% 图片路径
+%==========================================
+\graphicspath{{figure/},
+{002_tdm_note/figure}, 
+}
+
+%==========================================
 % 章节内容
 %==========================================
-\input{002_latex_note/latex_note}
-\input{003_git_note/git_note}
-\input{004_vim_note/vim_note}
-\input{005_protocol_note/protocol_note}
-
-\input{006_literature_note/literature_note}
-\input{007_complier_note/complier_note}
-\input{008_system_work_note/system_work_note}
-\input{009_soft_install_note/soft_install_note}
+\input{002_tdm_note/tdm_note.tex}
 
 
 \end{document}
