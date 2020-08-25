@@ -89,12 +89,18 @@ coltext=black
 \lstnewenvironment{myccode}[1][]
 {\lstset{
     numbers=left,
-    %numberstyle={\color{lightgray}},
+    numberstyle=\tiny,
     %frame=none, %无边框
     frame=lines, %上下线
     %frame=single, %边框
     language={[ANSI]C},
     breaklines=true, %自动分行
+    basicstyle=\small,
+    keywordstyle=\color{blue}\small,
+    stringstyle=\color{violet}\small,
+    stringstyle=\color{magenta}\small,
+    commentstyle=\color{gray}\small,
+    showstringspaces=false, %取消显示字符串空格, 可能会显示不出来
     %keywordstyle={\color{blue}}, %关键词颜色
     %stringstyle={\color{orange}}, %字符串颜色
     %stringstyle={\color{magenta}}, %字符串颜色
@@ -128,14 +134,6 @@ coltext=black
 {\end{quote}}
 %{}
 
-%==========================================
-% 图片路径
-%==========================================
-\graphicspath{{figure/}, 
-{005_protocol_note/bt_picture/}, 
-{009_soft_install_note/gvim_install_picture/}, 
-{008_system_work_note/system_note_picture/}, 
-}
 
 %==========================================
 % 水印
