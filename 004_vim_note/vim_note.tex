@@ -1,7 +1,17 @@
 \section{VIM学习笔记}
 
 \subsection{删除不符合指定格式的行}
-当需要删除不符合指定格式的行时，需要命令, 指令格式\emphasizebox{RES = }：
+当需要删除不符合指定格式的行时，需要命令, 保留\emphasizebox{RES = }, 指令格式：
 \begin{messagebox}
 :v/RES = /d
 \end{messagebox}
+
+\subsection{删除文件中的\^M 符号}
+\^M是windos的dos文件格式特有的换行符，在linux上你可以通过cat -A 文件名看到这些隐藏字符。当您的文件是dos格式时，就会出现这个\^M.所以一些shell脚本执行就会出现莫名其妙的问题, 解决方法:
+\begin{itemize}
+\item vi filename打开文件，执行:set ff=unix 设置文件为unix，然后执行:wq，保存成unix格式。
+\item 批量删除命令：
+\begin{messagebox}
+:%s/\r//g
+\end{messagebox}
+\end{itemize}
