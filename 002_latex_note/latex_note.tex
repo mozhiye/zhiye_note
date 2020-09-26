@@ -167,3 +167,22 @@ am Tex.汉字和字母自动添加空格tex。
 这是第四级别段落；
 \subparagraph{段落级别：subparagraph}
 这是第五级别段落；
+
+
+\subsection{使用TikZ画图}
+\begin{tikzpicture}
+    \draw (0,0) -- (1,1);
+\end{tikzpicture}
+
+
+ \begin{tikzpicture}
+    [L1Node/.style={circle,   draw=blue!50, fill=blue!20, very thick, minimum size=10mm},
+    L2Node/.style={rectangle,draw=green!50,fill=green!20,very thick, minimum size=10mm}]
+       \node[L1Node] (n1) at (0, 0){$\int x dx$};
+       \node[L2Node] (n2) at (2, 0){$n!$};
+    \end{tikzpicture}
+
+\begin{tikzpicture}
+    \draw[thick,rounded corners=8pt] 
+    (0,0) -- (0,2) -- (1,3.25) -- (2,2) -- (2,0) -- (0,2) -- (2,2) -- (0,0) -- (2,0);
+\end{tikzpicture}

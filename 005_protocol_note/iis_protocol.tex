@@ -63,6 +63,45 @@ IIS模式是标准左对齐格式再延迟一个时钟位变化来的，时序�
 \subsubsection{IIS时钟频率计算}
 SCK = 采样率（48K、44.1K、16K等） x  字长（16bit、24bit、32bit） x 2（左右两通道）；MCLK/SCK =  384 、256 等需要参考手册说明支持哪种；
 
+
+\subsubsection{ES9018芯片IIS通信实例}
+ES9018芯片数据手册\myurlfootnote{https://pan.baidu.com/s/123GuxBl2Uig3Jy3Jfp4MTw}{链接}，提取码：ix8r。\newline
+ES9018芯片IIS只支持64SCLK/Frame，数据位宽支持32/24/20/16bit模式，时序如下：
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{ES9018_IIS.png}
+\caption{ES9018 IIS时序图}
+\end{figure}
+由时序图可知，各种数据位宽都统一使用64SCK/Frame模式，如果主机传输位宽少于ES9018的数据位宽，低位应该会补全0或者全1，不同接收模式可通过IIC通信配置，寄存器定义如下：
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{ES9018_IIS_default_config.jpg}
+\caption{ES9018 IIS模式配置}
+\end{figure}
+ES9018 IIS默认模式是标准IIS，位宽为32bit模式，默认采样率为44.1K。
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{ES9018_IIS_sr_config.jpg}
+\caption{ES9018默认采样率配置}
+\end{figure}
+ES9018硬件标号标定如下：
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{ES9018_HW_IIS_PIN.jpg}
+%\caption{ES9018硬件IIS引脚}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{ES9018_HW_IIS_PIN2.jpg}
+\caption{ES9018硬件IIS引脚}
+\end{figure}
+
+调试遇到问题：
+\begin{itemize}
+\item 用32clk/frame传输时数据，传输1k频率，44.1K采样率的数据，ES9018 DAC数据信号会变为44.1K的正弦波信号；
+\item 我们Audio Link需要需要用64clk/frame模式，位宽可以为16bit，中断填数需要注意左右声道数据交错，否则会出现不可预料的问题；
+\end{itemize}
+
 \subsubsection{一些问题解答}
 \begin{itemize}
     \item \emphasizebox{384, 512fs}代表什么意思?\newline

@@ -15,3 +15,57 @@
 :%s/\r//g
 \end{messagebox}
 \end{itemize}
+
+\subsection{VIM分屏命令}
+\begin{itemize}
+\item 水平分屏
+\begin{messagebox}
+:split [FILENAME]
+:sp [FILENAME]
+\end{messagebox}
+\item 垂直分屏
+\begin{messagebox}
+:vsplit [FILENAME]
+:vs [FILENAME]
+\end{messagebox}
+\end{itemize}
+
+\subsection{GVIM修改配置}
+\begin{itemize}
+\item 开启循环搜索，注释掉:
+\begin{messagebox}
+"set nowrapscan              " 禁止在搜索到文件两端时重新搜索
+\end{messagebox}
+
+\item 取消c语法高亮问题：
+\begin{messagebox}
+" ~~~C语言语法高亮
+let g:std_c_en = 0
+if (g:std_c_en)
+Bundle 'vim-scripts/std_c.zip'
+endif
+\end{messagebox}
+
+\item 解决高亮当前词跳到下一个问题：
+\begin{messagebox}
+nmap fd *''N
+\end{messagebox}
+
+\item 解决注释快捷键问题：
+\begin{messagebox}
+" ~~~注释与反注释所选内容(两个插件可以二选一)
+let g:tcomment_en = 1
+if (g:tcomment_en)
+Bundle 'vim-scripts/tComment'
+Bundle 'scrooloose/nerdcommenter' "打开该行
+endif
+"NERDCommenter注释快捷键
+vmap // <leader>ci
+\end{messagebox}
+
+\item 解决复制粘贴问题：
+\begin{messagebox}
+set clipboard=unnamed
+\end{messagebox}
+
+\end{itemize}
