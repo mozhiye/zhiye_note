@@ -1,18 +1,278 @@
 \section{Linux系统使用笔记}
 \subsection{网络传输文件}
-IP:192.168.8.230
-
 从本地复制到远程
-
-        本地                           远程
+\begin{commandbox}
 scp local_file remote_username@remote_ip:remote_folder 
+\end{commandbox}
 或者 
+\begin{commandbox}
 scp local_file remote_username@remote_ip:remote_file 
+\end{commandbox}
 
 从远程复制到本地
-        远程                                            本地
+\begin{commandbox}
 scp root@www.runoob.com:/home/root/others/music /home/space/music/1.mp3 
+\end{commandbox}
 
-scp mozhiye@192.168.8.230:/home/001_WORK_DIR/007_new_repo/003_br30_sdk/150_call_voice/SDK/Makefile .
-账号：mozhiye
-密码：mozhiye@2017
+\subsection{Tmux使用}
+\subsubsection{Tmux一些名词约定}
+\begin{itemize}
+\item session：会话，通常我们在终端中操作一个任务的时候，一旦终端关闭，任务也就结束了，被强制关闭了，在 tmux 中 使用 session 就可以解决这个问题，我们可以把当前操作的任务隐藏起来，在视觉上让它消失，任务继续执行着，当我们想返回任务做一些操作的时候，它可以很方便的回来，我们通常把上面的操作就做 session 操作，我们可以把 session 给隐藏起来，我们也可以把 session 给真的关掉。
+\item window：窗口
+\item pane：窗格,在 tmux 中有一个窗口的概念，我们可以这样要去理解窗口：当前呈现在我们面前的这一个工作区域就是一个窗口（当前的终端界面），窗口可以被不断切割，切割成一个个小块，这一个个小块我们叫做窗格（pane）,这就是窗口和窗格的概念，我们把它想象成一块大蛋糕可以切成很多小块蛋糕，窗口可以被分割成很多小的窗格。
+\end{itemize}
+总结：一个 session 通常指一个任务里面可以有很多窗口，一个窗口又可以有很多的窗格。可能很抽象，通过下面的实践操作，相信你会加深对 tmux 的理解。
+\subsubsection{Tmux命令操作}
+session操作:
+\begin{itemize}
+\item 新建一个session
+\begin{commandbox}
+± tmux
+\end{commandbox}
+名字默认用数字编号，指定session名
+\begin{commandbox}
+± tmux new -s br28_sdk
+\end{commandbox}
+此时从普通终端进入到seesion中。
+\item 断开session
+\begin{commandbox}
+± tmux detach
+\end{commandbox}
+这时从seesion回到普通终端，新建的session还在。
+\item 查看新建的session列表
+\begin{commandbox}
+± tmux ls    
+br28_sdk: 1 windows (created Sat Sep 26 14:19:21 2020) [189x37] (attached)
+\end{commandbox}
+\item 进入已建立的seesion
+\begin{commandbox}
+± tmux attach -t br28_sdk
+\end{commandbox}
+\item 删除已建立的seesion
+\begin{commandbox}
+± tmux kill-session -t br28_sdk
+\end{commandbox}
+\item 在不同seesion中切换
+\begin{commandbox}
+± tmux switch -t br28_sdk
+\end{commandbox}
+\item seesion重命名
+\begin{commandbox}
+± tmux rename-session -t <old-session-name> <new-session-name>
+\end{commandbox}
+\end{itemize}
+
+window操作:
+一块工作屏幕我们叫做窗口(window)，窗口是可以被分割的，当前的工作区域被分割的一块块区域就是窗格（pane）。
+\emphasizebox{窗口内部操作}
+\begin{itemize}
+\item 水平切割窗格
+\begin{commandbox}
+± tmux split-window 
+\end{commandbox}
+垂直切割窗格
+\begin{commandbox}
+± tmux split-window -h
+\end{commandbox}
+
+\item 在不同窗格中移动, 向上移动
+\begin{commandbox}
+± tmux select-pane  -U
+\end{commandbox}
+向下移动
+\begin{commandbox}
+± tmux select-pane  -D
+\end{commandbox}
+向左移动
+\begin{commandbox}
+± tmux select-pane  -L
+\end{commandbox}
+向右移动
+\begin{commandbox}
+± tmux select-pane  -R
+\end{commandbox}
+
+\emphasizebox{窗口间操作}
+
+\item 创建一个window
+\begin{commandbox}
+± tmux new-window -n <window-name>
+\end{commandbox}
+
+\item 切换window
+\begin{commandbox}
+± tmux select-window -t <window-name>
+\end{commandbox}
+
+\item 重命名window
+\begin{commandbox}
+± tmux rename-window <new-window-name>
+\end{commandbox}
+
+\item 关闭window
+\begin{commandbox}
+± tmux kill-window -t <window-name>
+\end{commandbox}
+
+\end{itemize}
+
+\begin{itemize}
+\item 列出所有快捷键，及其对应的 Tmux 命令
+\begin{commandbox}
+ tmux list-keys
+\end{commandbox}
+
+\item 列出所有 Tmux 命令及其参数
+\begin{commandbox}
+± tmux list-commands
+\end{commandbox}
+
+\item 列出当前所有 Tmux 会话的信息
+\begin{commandbox}
+± tmux info
+\end{commandbox}
+
+\item 重新加载当前的 Tmux 配置
+\begin{commandbox}
+± tmux source-file ~/.tmux.conf
+\end{commandbox}
+
+\end{itemize}
+
+\subsubsection{Tmux配置文件}
+在根目录新建一个.tmux.conf文件
+\begin{messagebox}
+unbind C-b
+set -g prefix C-a
+
+bind-key -n F11 previous-window
+bind-key -n F12 next-window
+
+unbind %
+bind | split-window -h
+
+unbind '"'
+bind - split-window -v
+#bind a rekiad key
+# bind r source-file ~/.tmux.conf ; display-message "Config reloaded.."
+
+#选择分割的窗格
+bind k selectp -U #选择上窗格
+bind j selectp -D #选择下窗格
+bind h selectp -L #选择左窗格
+bind l selectp -R #选择右窗格
+#----------------------------------------------
+
+
+#重新调整窗格的大小
+bind C-k resizep -U 5
+bind C-j resizep -D 5
+bind C-h resizep -L 5
+bind C-l resizep -R 5
+#----------------------------------------------
+
+
+#use vim keybindings in copy mode
+# setw -g mode-keys vi
+
+#status bar
+#color
+set -g status-bg black
+set -g status-fg white
+
+#align
+set-option -g status-justify centre
+
+# left conner
+set-option -g status-left '#[bg=black,fg=green,bright][#[fg=cyan]#S#[fg=green]]'
+set-option -g status-left '#[bg=black,fg=green,bright][#[fg=cyan]#S#[fg=green]]'
+set-option -g status-left-length 20
+
+# window list
+setw -g automatic-rename on
+set-window-option -g window-status-format '#[dim]#I:#[default]#W#[fg=grey,dim]'
+set-window-option -g window-status-current-format '#[fg=cyan,bold]#I#[fg=blue]:#[fg=cyan]#W#[fg=dim]'
+
+# right conner
+set -g status-right '#[fg=green][#[fg=cyan]%Y-%m-%d#[fg=green]]'
+set -g status-right "#[fg=yellow,bright][ #[fg=cyan]#W #[fg=yellow]]#[default] #[fg=yellow,bright]- %Y.%m.%d #[fg=green]%H:%M #[default]"
+
+set-window-option -g mode-keys vi #可以设置为vi或emacs
+set-window-option -g utf8 on #开启窗口的UTF-8支持
+
+# ---持久保存Tmux会话
+# for resurrect
+#run-shell ~/.tmux/plugins/tmux-resurrect/resurrect.tmux
+# for continuum
+#run-shell ~/.tmux/plugins/tmux-continuum/continuum.tmux
+#5分钟自动保存一次
+#set -g @continuum-save-interval '5' 
+
+# ---tmux powerline
+#set-option -g status on
+#set-option -g status-interval 2
+#set-option -g status-utf8 on
+#set-option -g status-justify "centre"
+#set-option -g status-left-length 60
+#set-option -g status-right-length 90
+#set-option -g status-left "#(~/.tmux/plugins/tmux-powerline/powerline.sh left)"
+#set-option -g status-right "#(~/.tmux/plugins/tmux-powerline/powerline.sh right)"
+#set-window-option -g window-status-current-format "#[fg=colour235, bg=colour27]⮀#[fg=colour255, bg=colour27] #I ⮁ #W #[fg=colour27, bg=colour235]⮀"
+set -g default-terminal "screen-256color"
+
+# ---Tmux Plugin Manager
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'erikw/tmux-powerline'
+#set -g @plugin 'tmux-colors-solarized'
+
+#set -g @colors-solarized 'light'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
+\end{messagebox}
+
+\subsubsection{Tmux快捷键}
+会话快捷键
+\begin{itemize}
+\item 前缀 + ?: 帮助
+\item 前缀 + ?: 帮助
+\item 前缀 + d：分离当前会话
+\item 前缀 + s：列出所有会话。
+\item 前缀 + \$：重命名当前会话
+\end{itemize}
+
+窗格快捷键
+\begin{itemize}
+\item 前缀 +  \%：划分左右两个窗格。
+\item 前缀 +  "：划分上下两个窗格。
+\item 前缀 +  <arrow key>：光标切换到其他窗格。<arrow key>是指向要切换到的窗格的方向键，比如切换到下方窗格，就按方向键↓。
+\item 前缀 +  ;：光标切换到上一个窗格。
+\item 前缀 +  o：光标切换到下一个窗格。
+\item 前缀 +  {：当前窗格与上一个窗格交换位置。
+\item 前缀 +  }：当前窗格与下一个窗格交换位置。
+\item 前缀 +  Ctrl+o：所有窗格向前移动一个位置，第一个窗格变成最后一个窗格。
+\item 前缀 +  Alt+o：所有窗格向后移动一个位置，最后一个窗格变成第一个窗格。
+\item 前缀 +  x：关闭当前窗格。
+\item 前缀 +  !：将当前窗格拆分为一个独立窗口。
+\item 前缀 +  z：当前窗格全屏显示，再使用一次会变回原来大小。
+\item 前缀 +  Ctrl+<arrow key>：按箭头方向调整窗格大小。
+\item 前缀 +  q：显示窗格编号。
+\end{itemize}
+
+窗口快捷键
+\begin{itemize}
+\item 前缀 + c：创建一个新窗口，状态栏会显示多个窗口的信息。
+\item 前缀 + p：切换到上一个窗口（按照状态栏上的顺序）。
+\item 前缀 + n：切换到下一个窗口。
+\item 前缀 + <number>：切换到指定编号的窗口，其中的<number>是状态栏上的窗口编号。
+\item 前缀 + w：从列表中选择窗口。
+\item 前缀 + ,：窗口重命名。
+\end{itemize}
+
+时间快捷键
+\begin{itemize}
+\item 前缀 + t：在当前的窗格当中显示时钟，非常酷炫的一个功能，点击 enter (回车键将会复原)
+\end{itemize}
+
