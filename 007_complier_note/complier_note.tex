@@ -312,3 +312,10 @@ int add_mem(int *pa, int *pb)
 return a;
 }
 \end{myccode}
+
+\subsection{CLZ指令}
+\begin{myccode}
+    Rd = clz(Rm)
+\end{myccode}
+计算前导零的个数，即从最高位开始，连续出现的 0 的个数。如0xFFF,FFFF，执行该指令后Rd结果为4。
+
