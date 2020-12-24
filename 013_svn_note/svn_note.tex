@@ -62,3 +62,22 @@
 \item 只有上传之后，再更新引用的文件夹里面的内容才会更新，引用的文件夹内容同步的是远程服务器的内容；
 \end{itemize}
 
+\subsection{Linux svn命令行忽略某些文件跟踪}
+修改配置文件，路径：
+\begin{commandbox}
+vim ~/.subversion/config
+\end{commandbox}
+添加配置项：
+\begin{messagebox}
+global-ignores = *.o *.lo *.d *.la *.al .libs *.so *.so.[0-9]* *.a *.bin *.pyc *.pyo __pycache__ cscope.out tags filenametags *.bc symbol.txt *resolution.txt *.format_orig
+\end{messagebox}
+
+\subsection{Linux svn命令行添加diff工具关联}
+修改配置文件，路径：
+\begin{commandbox}
+vim ~/.subversion/config
+\end{commandbox}
+添加配置项：
+\begin{messagebox}
+diff-cmd = meld
+\end{messagebox}
