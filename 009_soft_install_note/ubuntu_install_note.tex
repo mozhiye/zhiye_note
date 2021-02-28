@@ -479,3 +479,28 @@ set clipboard=unnamed
 \item 完成, 测试复制粘贴功能。
 
 \end{itemize}
+
+%============================================
+%           问题解决3
+%============================================
+\subsubsection{问题: github上传权限问题}
+\begin{itemize}
+
+\item 进入\emphasizebox{~/.ssh/}目录, 生成密钥, 不用输入其他, 直接回车
+\begin{commandbox}
+ssh-keygen -t rsa -C "zhiyemo@outlook.com"
+\end{commandbox}
+
+\item 将id\_rsa.pub文件内容复制到github网上
+
+\item 测试是否添加成功
+\begin{commandbox}
+ssh -T git@github.com
+\end{commandbox}
+
+\begin{messagebox}
+Warning: Permanently added the RSA host key for IP address '13.250.177.223' to the list of known hosts.
+Hi mozhiye! You've successfully authenticated, but GitHub does not provide shell access.
+\end{messagebox}
+
+\end{itemize}
