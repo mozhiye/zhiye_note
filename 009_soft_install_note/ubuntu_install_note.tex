@@ -399,6 +399,47 @@ sudo fc-cache -fv
 \end{commandbox}
 
 %============================================
+%   安装共享键盘和鼠标应用: barrier
+%============================================
+\subsubsection{安装共享键盘和鼠标应用: barrier}
+\emphasizebox{barrier}是一款跨平台的共享键盘和鼠标的软件, 属于开源软件, 代码地址\url{https://gitee.com/sea18c/barrier#https://repology.org/project/barrier/versions}, 可实现在不同桌面系统上通过同一鼠标拖动到屏幕边界实现鼠标和键盘在不同系统上的桌面操作, 前提是每个系统都需要接显示屏, 这个跟远程桌面有本质差别, 因此barrier只能当作是远程鼠标和键盘, 安装步骤如下:
+
+客户器端(被控制的一端)通常为ubuntu, 安装步骤如下:
+\begin{itemize}
+\item 运行命令安装
+\begin{commandbox}
+ > sudo apt-get install barrier
+\end{commandbox}
+
+\item 打开软件, 选择配置为客户端, 输入服务端ip, 点击运行应用即可
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{009_barrier_instal_02.jpg}
+\caption{客户端配置如图}
+\end{figure}
+
+\end{itemize}
+
+服务器端(接了实际键盘和鼠标的一端)通常为windows:
+\begin{itemize}
+
+\item 安装软件即可, 链接\url{https://pan.baidu.com/s/1HuO1BK2aAbgcsUF3YvQcHg}, 提取码：a6md
+
+\item 安装完之后打开, 选择服务器端, 配置如图:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{008_barrier_instal_01.jpg}
+\caption{服务器端配置如图}
+\end{figure}
+
+\item 最后点击运行, 在客户端点击同意连接即可
+
+\item 把鼠标拖到屏幕边缘测试是否可以控制客户端的屏幕
+
+\end{itemize}
+
+
+%============================================
 %           问题解决1
 %============================================
 \subsubsection{问题: 不接显示器VNC无法连接}
