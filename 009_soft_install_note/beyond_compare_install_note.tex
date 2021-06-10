@@ -6,5 +6,16 @@
 \item Beyond Compare安装包链接：\url{https://pan.baidu.com/s/1rn0mArpZL_zp9Zs3QjT3FA}，提取码：mm5s
 \item 解压压缩包到任意目录。
 \item 过期删除BCState.xml文件即可
+\item 定时刷新使用权限命令, 在cmd脚本执行:
+\begin{commandbox}
+schtasks /create /tn "FlashBC" /tr D:\BeyondCompare_4.3.5.24893_64bit_Portable\flash.bat /sc DAILY /st 8:00
+\end{commandbox}
+\item 其中flash.bat内容
+\begin{messagebox}
+del BCState.xml
+del BCState.xml.bak
+copy state\* .
+::copy state/BCState
+\end{messagebox}
 \end{itemize}
 
