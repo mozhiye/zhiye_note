@@ -1,4 +1,25 @@
 \section{GIT学习笔记}
+\subsection{git push命令}
+\begin{itemize}
+\item 详细命令格式:
+\begin{commandbox}
+ > git push <远程主机名> <本地分支名>:<远程分支名>
+\end{commandbox}
+\item 常用命令1: 推送提交到远程
+\begin{commandbox}
+ > git push origin master:master
+\end{commandbox}
+\item 常用命令2: 推送提交到代码审核
+\begin{commandbox}
+ > git push origin master:refs/for/master
+\end{commandbox}
+\item 常用命令2: 推送新分支
+\begin{commandbox}
+ > git push origin HEAD:refs/heads/case/new_branch -u 
+\end{commandbox}
+
+\end{itemize}
+
 \subsection{合并两个提交历史}
 \begin{itemize}
 \item 使用情景: 有时候在开发过程中会由于不同原因会产生很多个本地提交历史:
