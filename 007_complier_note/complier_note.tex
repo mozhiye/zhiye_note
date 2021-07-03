@@ -335,7 +335,7 @@ static void enable_int(void)
     int tmp;
     __asm__ volatile("%0 = icfg" : "=r"(tmp));
     tmp |= 1 << 8;
-    __asm__ volatile("icfg = %0" :: "=r"(tmp));
+    __asm__ volatile("icfg = %0" :: "r"(tmp));
 }
 
 static void disable_int(void)
@@ -343,6 +343,6 @@ static void disable_int(void)
     int tmp;
     __asm__ volatile("%0 = icfg" : "=r"(tmp));
     tmp &= ~(1 << 8);
-    __asm__ volatile("icfg = %0" :: "=r"(tmp));
+    __asm__ volatile("icfg = %0" :: "r"(tmp));
 }
 \end{myccode}
