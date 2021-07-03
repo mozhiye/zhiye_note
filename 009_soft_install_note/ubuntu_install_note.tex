@@ -246,6 +246,57 @@ org->gnome->desktop->remote-access
 \end{itemize}
 
 %============================================
+%      ubuntu20.04配置无显示器开机问题
+%============================================
+\subsubsection{ubuntu20.04配置无显示器启动}
+当没外接显示器，而我们需要远程至Ubuntu Desktop的GUI桌面时，ubuntu开机不启动GUI, 参考\myurlfootnote{https://www.jianshu.com/p/1b9b71f38827?from=singlemessage}{教程}
+\begin{itemize}
+\item 安装vino
+\begin{commandbox}
+ > sudo apt install vino
+\end{commandbox}
+
+\item 安装vidio-dummy
+\begin{commandbox}
+ > sudo apt install xserver-xorg-video-dummy
+\end{commandbox}
+
+\item 增加配置文件
+\begin{commandbox}
+ > sudo vi /usr/share/X11/xorg.conf.d/xorg.conf
+\end{commandbox}
+\begin{messagebox}
+Section "Monitor"
+  Identifier "Monitor0"
+  HorizSync 28.0-80.0
+  VertRefresh 48.0-75.0
+  # https://arachnoid.com/modelines/
+  # 1024x768 @ 60.00 Hz (GTF) hsync: 47.70 kHz; pclk: 64.11 MHz
+  Modeline "1024x768_60.00" 64.11 1024 1080 1184 1344 768 769 772 795 -HSync +Vsync
+EndSection
+Section "Device"
+  Identifier "Card0"
+  Driver "dummy"
+  VideoRam 256000
+EndSection
+Section "Screen"
+  DefaultDepth 24
+  Identifier "Screen0"
+  Device "Card0"
+  Monitor "Monitor0"
+  SubSection "Display"
+    Depth 24
+    Modes "1024x768_60.00"
+  EndSubSection
+EndSection
+\end{messagebox}
+
+
+\item 重新启动系统
+
+\end{itemize}
+
+%============================================
 %           配置ssh远程登陆环境
 %============================================
 \subsubsection{配置ssh远程登陆环境}
@@ -328,10 +379,16 @@ org->gnome->desktop->remote-access
 \begin{itemize}
 \item 安装git
 \begin{commandbox}
- > sudo apt-get instal git
+ > sudo apt-get install git
 \end{commandbox}
 
 \item 参考git配置章节配置git环境
+
+\item 安装tig
+\begin{commandbox}
+ > sudo apt-get install tig
+\end{commandbox}
+
 \end{itemize}
 
 %============================================
@@ -345,22 +402,22 @@ org->gnome->desktop->remote-access
 
 \item 安装vim
 \begin{commandbox}
- > sudo apt-get instal vim
+ > sudo apt-get install vim
 \end{commandbox}
 
 \item 安装cscope
 \begin{commandbox}
- > sudo apt-get instal cscope
+ > sudo apt-get install cscope
 \end{commandbox}
 
 \item 安装ctags
 \begin{commandbox}
- > sudo apt-get instal ctags
+ > sudo apt-get install ctags
 \end{commandbox}
 
 \item 安装zsh
 \begin{commandbox}
- > sudo apt-get instal zsh
+ > sudo apt-get install zsh
 \end{commandbox}
 
 \item 安装oh-my-zsh, 进入LINUX\_TOOLS/oh-my-zsh\_installl/tools目录
@@ -379,7 +436,7 @@ org->gnome->desktop->remote-access
 
 \item 测试c语言工程插件是否会出错
 
-\item TODO:研究vim复制粘贴板问题
+\item TODO:研究vim复制粘贴板问题，问题解决参考vim章节
 \end{itemize}
 
 
@@ -482,7 +539,31 @@ sudo fc-cache -fv
 %============================================
 %           安装meld
 %============================================
-\subsubsection{安装make}
+\subsubsection{安装meld}
 \begin{commandbox}
  > sudo apt-get install meld
 \end{commandbox}
+
+%============================================
+%           安装vim
+%============================================
+\subsubsection{安装vim}
+输入命令, 其中\emphasizebox{vim-scripts}和\emphasizebox{gtk}支持\emphasizebox{clipboard}和\emphasizebox{xterm\_clipboard}, 参考\myurlfootnote{https://www.cnblogs.com/qiyuexin/p/7057686.html}{教程}
+\begin{commandbox}
+ > sudo apt-get install vim vim-scripts vim-gtk
+\end{commandbox}
+安装完成后, 查看是否支持clipboard功能, 该功能影响vim与系统粘贴板绑定
+\begin{commandbox}
+ > vim --version | grep clipboard
+\end{commandbox}
+
+%============================================
+%           一些解压命令
+%============================================
+\subsubsection{一些常用解压命令}
+\begin{messagebox}
+alias tar_y_gz='tar czvf'
+alias tar_j_gz='tar xzvf'
+alias tar_y_bz2='tar cjvf'
+alias tar_j_bz2='tar xjvf'
+\end{messagebox}
